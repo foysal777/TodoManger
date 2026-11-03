@@ -1,12 +1,12 @@
 # TodoList Manager - ASP.NET Core 8 Backend
 
-একটি প্রফেশনাল এবং স্কেলেবল **Clean Architecture** ভিত্তিক ASP.NET Core 8 Web API ব্যাকএন্ড প্রজেক্ট।
+A professional and scalable ASP.NET Core 8 Web API backend project built on **Clean Architecture**.
 
 ---
 
 ## 🏛️ Architecture Overview (Clean Architecture)
 
-প্রজেক্টটি ৪টি প্রধান লেয়ারে বিভক্ত:
+The project is divided into 4 main layers:
 
 ```
 TodoList Manager/
@@ -14,7 +14,7 @@ TodoList Manager/
 ├── TodoListManager.sln                     # Visual Studio / .NET Solution File
 │
 ├── src/
-│   ├── TodoListManager.Domain/             # ১. Domain Layer (Core Enterprise Business Rules)
+│   ├── TodoListManager.Domain/             # 1. Domain Layer (Core Enterprise Business Rules)
 │   │   ├── Common/
 │   │   │   └── BaseEntity.cs               # Id, CreatedAt, UpdatedAt
 │   │   ├── Entities/
@@ -24,7 +24,7 @@ TodoList Manager/
 │   │       ├── PriorityLevel.cs            # Low, Medium, High, Urgent
 │   │       └── TodoStatus.cs               # Pending, InProgress, Completed, Archived
 │   │
-│   ├── TodoListManager.Application/        # ২. Application Layer (Business Logic & Use Cases)
+│   ├── TodoListManager.Application/        # 2. Application Layer (Business Logic & Use Cases)
 │   │   ├── Common/
 │   │   │   ├── ApiResponse.cs              # Consistent API Response Envelope
 │   │   │   └── PagedResult.cs              # Pagination Metadata Wrapper
@@ -40,7 +40,7 @@ TodoList Manager/
 │   │       ├── TodoService.cs              # Business logic implementation
 │   │       └── CategoryService.cs          # Category logic implementation
 │   │
-│   ├── TodoListManager.Infrastructure/     # ৩. Infrastructure Layer (Database & External Services)
+│   ├── TodoListManager.Infrastructure/     # 3. Infrastructure Layer (Database & External Services)
 │   │   ├── Data/
 │   │   │   ├── ApplicationDbContext.cs     # EF Core DbContext with Audit Tracking
 │   │   │   └── DbInitializer.cs            # Auto-migration & Initial Seed Data
@@ -50,7 +50,7 @@ TodoList Manager/
 │   │   │   └── CategoryRepository.cs
 │   │   └── DependencyInjection.cs          # Clean Service Registration
 │   │
-│   └── TodoListManager.API/                # ৪. Presentation / Web API Layer (Controllers & HTTP)
+│   └── TodoListManager.API/                # 4. Presentation / Web API Layer (Controllers & HTTP)
 │       ├── Controllers/
 │       │   ├── BaseApiController.cs        # Common ApiController base
 │       │   ├── TodosController.cs          # CRUD, Filter, Search, Pagination, Toggle, Stats
@@ -63,22 +63,22 @@ TodoList Manager/
 
 ---
 
-## 🚀 কিভাবে রান করবেন (How to Run)
+## 🚀 How to Run
 
-প্রজেক্টটি রান করা খুবই সহজ। ডিফল্টভাবে **SQLite** ডাটাবেজ কনফিগার করা আছে, তাই কোনো অতিরিক্ত ডাটাবেজ ইনস্টল করার প্রয়োজন নেই। প্রজেক্ট রান হওয়ামাত্র স্বয়ংক্রিয়ভাবে `todolist.db` তৈরি হয়ে প্রাথমিক ডেমো ডাটা সিড হয়ে যাবে।
+Running the project is very straightforward. By default, it is configured to use a **SQLite** database, so no additional database installation is required. As soon as the project runs, `todolist.db` will be automatically created and seeded with initial demo data.
 
-### টার্মিনাল কমান্ড:
+### Terminal Commands:
 
 ```bash
-# ১. ডিপেনডেন্সি রিস্টোর ও বিল্ড
+# 1. Restore dependencies and build
 dotnet build
 
-# ২. API রান করা
+# 2. Run the API
 dotnet run --project src/TodoListManager.API
 ```
 
-API চালু হওয়ার পর ব্রাউজারে প্রবেশ করুন:
-- **Swagger Documentation**: [http://localhost:5000/swagger](http://localhost:5000/swagger) অথবা [http://localhost:5000](http://localhost:5000)
+Once the API is running, open your browser and navigate to:
+- **Swagger Documentation**: [http://localhost:5000/swagger](http://localhost:5000/swagger) or [http://localhost:5000](http://localhost:5000)
 
 ---
 
@@ -87,31 +87,31 @@ API চালু হওয়ার পর ব্রাউজারে প্রব
 ### 📝 Todos Endpoints (`/api/todos`)
 | Method | Endpoint | Description |
 |---|---|---|
-| `GET` | `/api/todos` | সার্চ, ফিল্টারিং ও পেজিনেশন সহ সকল টোডো পাওয়া |
-| `GET` | `/api/todos/{id}` | নির্দিষ্ট টাস্কের বিস্তারিত দেখা |
-| `POST` | `/api/todos` | নতুন টাস্ক তৈরি করা |
-| `PUT` | `/api/todos/{id}` | টাস্ক আপডেট করা |
-| `PATCH` | `/api/todos/{id}/toggle` | টাস্ক কমপ্লিট / আনকমপ্লিট টগল করা |
-| `DELETE` | `/api/todos/{id}` | টাস্ক ডিলিট করা |
-| `GET` | `/api/todos/stats` | টাস্কের পরিসংখ্যান (Completed, Pending, Overdue, Rate) |
-| `GET` | `/api/todos/upcoming?days=7` | আসন্ন ডেডলাইনের টাস্কসমূহ |
+| `GET` | `/api/todos` | Get all todos with search, filtering, and pagination |
+| `GET` | `/api/todos/{id}` | Get details of a specific task |
+| `POST` | `/api/todos` | Create a new task |
+| `PUT` | `/api/todos/{id}` | Update an existing task |
+| `PATCH` | `/api/todos/{id}/toggle` | Toggle task completion status (Complete / Incomplete) |
+| `DELETE` | `/api/todos/{id}` | Delete a task |
+| `GET` | `/api/todos/stats` | Get task statistics (Completed, Pending, Overdue, Rate) |
+| `GET` | `/api/todos/upcoming?days=7` | Get tasks with upcoming deadlines |
 
 ### 📂 Categories Endpoints (`/api/categories`)
 | Method | Endpoint | Description |
 |---|---|---|
-| `GET` | `/api/categories` | সব ক্যাটাগরি ও তাদের টাস্ক সংখ্যা দেখা |
-| `GET` | `/api/categories/{id}` | নির্দিষ্ট ক্যাটাগরি দেখা |
-| `POST` | `/api/categories` | নতুন ক্যাটাগরি তৈরি করা (Name, ColorHex) |
-| `PUT` | `/api/categories/{id}` | ক্যাটাগরি আপডেট করা |
-| `DELETE` | `/api/categories/{id}` | ক্যাটাগরি মুছে ফেলা |
+| `GET` | `/api/categories` | Get all categories along with their task counts |
+| `GET` | `/api/categories/{id}` | Get a specific category |
+| `POST` | `/api/categories` | Create a new category (Name, ColorHex) |
+| `PUT` | `/api/categories/{id}` | Update a category |
+| `DELETE` | `/api/categories/{id}` | Delete a category |
 
 ---
 
-## 💡 মূল বৈশিষ্ট্যসমূহ (Key Features)
+## 💡 Key Features
 
-1. **Clean Architecture Separation**: ডোমেইন, অ্যাপ্লিকেশন, ইনফ্রাস্ট্রাকচার ও প্রেজেন্টেশন সম্পূর্ণ আলাদা লেয়ারে বিভক্ত।
-2. **Repository & Service Pattern**: বিজনেস লজিক এবং ডাটাবেজ অ্যাক্সেস আলাদা থাকায় সহজে টেস্ট করা যায়।
-3. **Automatic Auditing**: `BaseEntity` এর মাধ্যমে `CreatedAt` এবং `UpdatedAt` স্বয়ংক্রিয়ভাবে EF Core এ ট্র্যাকিং হয়।
-4. **Global Exception Handling**: যেকোনো এরর সুন্দর ইউনিফর্ম JSON রেসপন্সে রিটার্ন করে (`ApiResponse<T>`)।
-5. **Swagger / OpenAPI**: ব্রাউজার থেকেই সব API টেস্ট করার চমৎকার ইন্টারফেস।
-6. **CORS Enabled**: যেকোনো ফ্রন্টএন্ড (React, Next.js, Vue, ইত্যাদি) থেকে সরাসরি কানেক্ট করা সম্ভব।
+1. **Clean Architecture Separation**: Domain, Application, Infrastructure, and Presentation are separated into distinct layers.
+2. **Repository & Service Pattern**: Decoupled business logic and database access for easy unit testing and maintainability.
+3. **Automatic Auditing**: Automatically tracks `CreatedAt` and `UpdatedAt` in EF Core via `BaseEntity`.
+4. **Global Exception Handling**: Returns any errors in a clean, uniform JSON response format (`ApiResponse<T>`).
+5. **Swagger / OpenAPI**: Interactive browser interface for testing all API endpoints.
+6. **CORS Enabled**: Ready to connect directly from any frontend framework (React, Next.js, Vue, etc.).
